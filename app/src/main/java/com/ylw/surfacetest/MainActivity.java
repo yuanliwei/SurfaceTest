@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private float startX = 0;
     private float startY = 0;
+    private String TAG = "MainActivity";
 
 
     @Override
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     endX = x;
                     endY = y;
                 }
+                Log.d(TAG,"x1 = , y1 = ; x2 = , y2 = ") ;
                 return true;
             }
         });
@@ -112,9 +115,9 @@ public class MainActivity extends AppCompatActivity {
             paint.setColor(0xff33ff33);
 
             canvas.drawArc(startX, startY, endX, endY, s, p, false, paint);
-            canvas.drawArc(startX, startY, endX, endY, s + 90, p, false, paint);
+//            canvas.drawArc(startX, startY, endX, endY, s + 90, p, false, paint);
             canvas.drawArc(startX, startY, endX, endY, s + 180, p, false, paint);
-            canvas.drawArc(startX, startY, endX, endY, s + 270, p, false, paint);
+//            canvas.drawArc(startX, startY, endX, endY, s + 270, p, false, paint);
 
             // 画点
             canvas.drawPoints(new float[]{startX, startY, endX, endY}, paint);
@@ -131,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             // 修改值
             s += 2;
             p += 4;
-            if (p > 90) {
+            if (p > 180) {
                 p = -p;
             }
         }
