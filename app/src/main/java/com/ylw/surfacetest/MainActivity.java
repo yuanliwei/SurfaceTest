@@ -38,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        surfaceView = (SurfaceView) findViewById(R.id.surface);
-        holder = surfaceView.getHolder();
-        holder.addCallback(new HolderCallBack());
+        surfaceView = (SurfaceView) findViewById(R.id.surface);//1.surfaceView
+        holder = surfaceView.getHolder();//2.holder
+        holder.addCallback(new HolderCallBack());//3.HolderCallBack
 
-        surfaceView.setOnTouchListener(new View.OnTouchListener() {
+        surfaceView.setOnTouchListener(new View.OnTouchListener() {//4.触摸确定区域 surfaceView.setOnTouchListener
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 float x = motionEvent.getX();
@@ -87,10 +87,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void initPaint() {
+    private void initPaint() {//设置画笔样式
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(0x88ff8888);
-        paint.setStrokeWidth(20);
+        paint.setColor(0x88ff8888);//画笔颜色
+        paint.setStrokeWidth(20);//画笔大小
         paint.setStyle(Paint.Style.STROKE);
         paintBg = new Paint();
         paintBg.setColor(0xffEEEEEE);
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
             paint.setColor(0xff33ff33);
 
-            canvas.drawArc(startX, startY, endX, endY, s, p, false, paint);
+            canvas.drawArc(startX, startY, endX, endY, s, p, false, paint);//左上x，左上y,右下x，右下y，画笔的起始位置，画笔的长度，是否闭合（中间直线），画笔
 //            canvas.drawArc(startX, startY, endX, endY, s + 90, p, false, paint);
             canvas.drawArc(startX, startY, endX, endY, s + 180, p, false, paint);
 //            canvas.drawArc(startX, startY, endX, endY, s + 270, p, false, paint);
@@ -132,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
             holder.unlockCanvasAndPost(canvas);
 
             // 修改值
-            s += 2;
-            p += 4;
-            if (p > 180) {
+            s += 2;//起始位置
+            p += 4;//所画长度
+            if (p > 180) {//画一半转向
                 p = -p;
             }
         }
