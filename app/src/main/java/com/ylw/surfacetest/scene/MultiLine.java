@@ -10,8 +10,7 @@ import android.view.MotionEvent;
 public class MultiLine {
 
     private final Paint paint;
-    private final Paint paintBg;
-    private final float w;
+     private final float w;
     private final float h;
     private int time;
     private float[] points;
@@ -24,8 +23,6 @@ public class MultiLine {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(0xffff8888);
         paint.setStyle(Paint.Style.STROKE);
-        paintBg = new Paint();
-        paintBg.setColor(0xffEEEEEE);
 
         initPoints(dt);
     }

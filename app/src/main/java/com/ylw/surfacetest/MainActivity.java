@@ -10,6 +10,7 @@ import android.view.SurfaceView;
 import android.view.View;
 
 import com.ylw.surfacetest.scene.Background;
+import com.ylw.surfacetest.scene.Circle;
 import com.ylw.surfacetest.scene.CricleProgress;
 import com.ylw.surfacetest.scene.MultiLine;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Background background;
     private CricleProgress cricleProgress;
     private MultiLine multiLine;
+    private Circle circle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             cricleProgress = new CricleProgress(w, h);
             multiLine = new MultiLine(w, h);
             background = new Background(w, h);
+            circle = new Circle(w,h);
         }
 
         @Override
@@ -95,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             background.draw(canvas);
             cricleProgress.draw(canvas);
             multiLine.draw(canvas);
+            circle.draw(canvas);
             // 显示
             holder.unlockCanvasAndPost(canvas);
         }
