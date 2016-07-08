@@ -2,8 +2,8 @@ package com.ylw.surfacetest;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -11,6 +11,8 @@ import android.view.View;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static java.lang.Math.pow;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,8 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private Paint paintBg;
     private float w;
     private float h;
-    private float x=700;
-    private float y=1200;
+    private float endX = 700;
+    private float endY = 1200;
+
+    private float startX = 0;
+    private float startY = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +43,17 @@ public class MainActivity extends AppCompatActivity {
         surfaceView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                x = motionEvent.getX();
-                y = motionEvent.getY();
+                float x = motionEvent.getX();
+                float y = motionEvent.getY();
+                double start = pow(startX - x, 2) + pow(startY - y, 2);
+                double end = pow(endX - x, 2) + pow(endY - y, 2);
+                if (start < end) {
+                    startX = x;
+                    startY = y;
+                } else {
+                    endX = x;
+                    endY = y;
+                }
                 return true;
             }
         });
@@ -52,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 //            canvas = surfaceHolder.lockCanvas();
 //            canvas.drawArc(50,200,450,600,);
             timer = new Timer("timer");
-            timer.schedule(new InnerTimerTask(), 1000, 50);
+            timer.schedule(new InnerTimerTask(), 1000, 10);
             w = surfaceView.getWidth();
             h = surfaceView.getHeight();
 
@@ -77,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         paintBg = new Paint();
         paintBg.setColor(0xffEEEEEE);
 
-
     }
 
     private class InnerTimerTask extends TimerTask {
@@ -87,14 +101,37 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             canvas = holder.lockCanvas();
-//            canvas.drawRect(0, 0, w, h, paintBg);
-            for (int i = 1; i < 9; i++) {
-                canvas.drawArc(i * 10 * 3, i * 10 * 3, x + i * 10 * 3, y + i * 10 * 3, s, p, false, paint);
-            }
+            canvas.drawRect(0, 0, w, h, paintBg);
+
+            // 画圆弧
+            paint.setColor(0xffff8888);
+            paint.setStrokeWidth(40);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeCap(Paint.Cap.ROUND);
+
+            paint.setColor(0xff33ff33);
+
+            canvas.drawArc(startX, startY, endX, endY, s, p, false, paint);
+            canvas.drawArc(startX, startY, endX, endY, s + 90, p, false, paint);
+            canvas.drawArc(startX, startY, endX, endY, s + 180, p, false, paint);
+            canvas.drawArc(startX, startY, endX, endY, s + 270, p, false, paint);
+
+            // 画点
+            canvas.drawPoints(new float[]{startX, startY, endX, endY}, paint);
+
+            // 画方框
+            paint.setColor(0xff8888ff);
+            paint.setStrokeWidth(2);
+            paint.setStyle(Paint.Style.STROKE);
+            canvas.drawRect(startX, startY, endX, endY, paint);
+
+            // 显示
             holder.unlockCanvasAndPost(canvas);
-            s += 4;
-            p += 8;
-            if (p > 360) {
+
+            // 修改值
+            s += 2;
+            p += 4;
+            if (p > 90) {
                 p = -p;
             }
         }
