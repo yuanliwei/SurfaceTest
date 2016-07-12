@@ -10,20 +10,22 @@ import android.view.MotionEvent;
 public class MultiLine {
 
     private final Paint paint;
-     private final float w;
-    private final float h;
+    private float w;
+    private float h;
     private int time;
     private float[] points;
     private int dt = 30;
     private int count;
 
-    public MultiLine(float w, float h) {
-        this.w = w;
-        this.h = h;
+    public MultiLine() {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(0xffff8888);
         paint.setStyle(Paint.Style.STROKE);
+    }
 
+    public void initWidthHeigth(float w, float h) {
+        this.w = w;
+        this.h = h;
         initPoints(dt);
     }
 
@@ -31,7 +33,7 @@ public class MultiLine {
         count = (int) (w / dt);
         float dh = h / count;
         points = new float[count * 4];
-        for (int i = 0; i < count * 4; ) {
+        for (int i = 0; i < count * 4 - 4; ) {
             points[i] = dt;
             points[i + 1] = dh + dh * i / 4;
 
@@ -71,10 +73,10 @@ public class MultiLine {
         int length;
         if (time < count) {
             start = 0;
-            length = time*4;
+            length = time * 4;
         } else {
-            start = (time - count)*4;
-            length = (count*2 - time)*4;
+            start = (time - count) * 4;
+            length = (count * 2 - time) * 4;
         }
 
         paint.setStrokeCap(Paint.Cap.ROUND);

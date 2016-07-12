@@ -1,107 +1,67 @@
 package com.ylw.surfacetest;
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.support.v7.app.NotificationCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-
-import com.ylw.surfacetest.scene.Background;
-import com.ylw.surfacetest.scene.Circle;
-import com.ylw.surfacetest.scene.CricleProgress;
-import com.ylw.surfacetest.scene.MultiLine;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SurfaceView surfaceView;
-    private Timer timer;
-    private SurfaceHolder holder;
-    private float w;
-    private float h;
-
-    private String TAG = "MainActivity";
-
-
-    private Background background;
-    private CricleProgress cricleProgress;
-    private MultiLine multiLine;
-    private Circle circle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        surfaceView = (SurfaceView) findViewById(R.id.surface);
-        holder = surfaceView.getHolder();
-        holder.addCallback(new HolderCallBack());
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        surfaceView.setOnTouchListener(new View.OnTouchListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                cricleProgress.onTouch(motionEvent);
-                multiLine.onTouch(motionEvent);
-                return true;
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
-    }
-
-
-    private class HolderCallBack implements SurfaceHolder.Callback {
-        @Override
-        public void surfaceCreated(SurfaceHolder surfaceHolder) {
-//            canvas = surfaceHolder.lockCanvas();
-//            canvas.drawArc(50,200,450,600,);
-            timer = new Timer("timer");
-            timer.schedule(new InnerTimerTask(), 100, 20);
-            w = surfaceView.getWidth();
-            h = surfaceView.getHeight();
-            cricleProgress = new CricleProgress(w, h);
-            multiLine = new MultiLine(w, h);
-            background = new Background(w, h);
-            circle = new Circle(w,h);
-        }
-
-        @Override
-        public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-        }
-
-        @Override
-        public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-            timer.cancel();
-        }
-    }
-
-    private void initPaint() {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(0x88ff8888);
-        paint.setStrokeWidth(60);
-        paint.setStyle(Paint.Style.STROKE);
-        Paint paintBg = new Paint();
-        paintBg.setColor(0xffEEEEEE);
 
     }
 
-    private class InnerTimerTask extends TimerTask {
-
-
-        @Override
-        public void run() {
-            Canvas canvas = holder.lockCanvas();
-            if (canvas == null) return;
-            background.draw(canvas);
-            cricleProgress.draw(canvas);
-            multiLine.draw(canvas);
-            circle.draw(canvas);
-            // 显示
-            holder.unlockCanvasAndPost(canvas);
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.notification:
+                showNotification();
+                break;
+            case R.id.surface_test:
+                startActivity(new Intent(this, SurfaceActivity.class));
+                break;
+            case R.id.five_chess:
+                startActivity(new Intent(this, FiveActivity.class));
+                break;
+            case R.id.animation:
+                startActivity(new Intent(this, AnimationActivity.class));
+                break;
         }
     }
 
+    private void showNotification() {
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        Notification notification = builder
+                .setContentTitle("这是通知标题")
+                .setContentText("这是通知内容")
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .build();
+        notification.contentIntent = PendingIntent.getActivity(this, 0, new Intent(), PendingIntent.FLAG_CANCEL_CURRENT);
+        manager.notify(1, notification);
+    }
 }

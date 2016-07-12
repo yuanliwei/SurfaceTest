@@ -12,13 +12,11 @@ public class Background {
     private static final String TAG = "Background";
 
     private final Paint paintBg;
-    private final float w;
-    private final float h;
+    private float w;
+    private float h;
 
 
-    public Background(float w, float h) {
-        this.w = w;
-        this.h = h;
+    public Background() {
         paintBg = new Paint();
         paintBg.setColor(0xffEEEEEE);
     }
@@ -29,5 +27,10 @@ public class Background {
     }
 
     public void onTouch(MotionEvent motionEvent) {
+    }
+
+    public void initWidthHeigth(float w, float h) {
+        this.w = w;
+        this.h = h;
     }
 }

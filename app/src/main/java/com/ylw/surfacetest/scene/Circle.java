@@ -1,7 +1,6 @@
 package com.ylw.surfacetest.scene;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 /**
@@ -16,7 +15,7 @@ public class Circle {
         this.w = w;
         this.h = h;
         paint = new Paint();
-        paint.setColor(Color.RED);
+        paint.setColor(0x33ff0000);
         paint.setStrokeWidth(5);
     }
 

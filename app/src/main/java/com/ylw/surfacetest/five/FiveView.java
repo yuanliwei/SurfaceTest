@@ -23,14 +23,11 @@ public class FiveView extends View {
     }
 
     public FiveView(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    public FiveView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
         this.context = context;
         init();
     }
+
 
     private void init() {
         fiveBackground = new FiveBackground(context);

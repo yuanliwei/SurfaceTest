@@ -16,10 +16,8 @@ import static java.lang.Math.pow;
 public class CricleProgress {
 
     private static final String TAG = "CricleProgress";
-    private final Paint paint;
-    private final Paint paintBg;
-    private final float w;
-    private final float h;
+    private Paint paint;
+    private Paint paintBg;
 
     private float startX = 87.87419f;
     private float startY = 140.77823f;
@@ -30,10 +28,10 @@ public class CricleProgress {
 
     float s = 0.1f;
     float p = 0.1f;
+    private float w;
+    private float h;
 
-    public CricleProgress(float w, float h) {
-        this.w = w;
-        this.h = h;
+    public CricleProgress() {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(0x88ff8888);
         paint.setStyle(Paint.Style.STROKE);
@@ -113,5 +111,10 @@ public class CricleProgress {
                 break;
         }
         Log.d(TAG, "x1 = " + startX + ", y1 = " + startY + "; x2 = " + endX + ", y2 = " + endY + "");
+    }
+
+    public void initWidthHeigth(float w, float h) {
+        this.w = w;
+        this.h = h;
     }
 }

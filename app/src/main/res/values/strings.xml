@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SurfaceTest</string>
+    <string name="title_activity_surface">SurfaceActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="notification">Notification</string>
+    <string name="surfacetest">SurfaceTest</string>
+    <string name="five_chess">five_chess</string>
+    <string name="animation">ANIMATION</string>
+    <string name="title_activity_animation">AnimationActivity</string>
 </resources>
