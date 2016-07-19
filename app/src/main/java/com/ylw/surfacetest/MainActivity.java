@@ -48,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.animation:
                 startActivity(new Intent(this, AnimationActivity.class));
                 break;
+            case R.id.jump_ball:
+                startActivity(new Intent(this, JumpBallActivity.class));
+                break;
+            case R.id.test_canvas:
+                startActivity(new Intent(this, CanvasTestActivity.class));
+                break;
         }
     }
 

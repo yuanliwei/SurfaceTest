@@ -49,6 +49,20 @@
                 android:layout_height="wrap_content"
                 android:onClick="onClick"
                 android:text="@string/animation"/>
+
+            <Button
+                android:id="@+id/jump_ball"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="@string/jump_ball"/>
+
+            <Button
+                android:id="@+id/test_canvas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onClick"
+                android:text="@string/canvas_test"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

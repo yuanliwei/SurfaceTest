@@ -7,4 +7,8 @@
     <string name="five_chess">five_chess</string>
     <string name="animation">ANIMATION</string>
     <string name="title_activity_animation">AnimationActivity</string>
+    <string name="jump_ball">JUMP BALL</string>
+    <string name="title_activity_jump_ball">JumpBallActivity</string>
+    <string name="title_activity_canvas_test">CanvasTestActivity</string>
+    <string name="canvas_test">CANVAS_TEST</string>
 </resources>
